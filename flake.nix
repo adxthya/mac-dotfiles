@@ -1,0 +1,122 @@
+{
+  description = "Adithya's nix-darwin system flake";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    mac-app-util.url = "github:hraban/mac-app-util";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+  };
+
+  outputs = inputs@{ self, nix-darwin, nixpkgs, mac-app-util, nix-homebrew,homebrew-core, homebrew-cask }:
+  let
+    configuration = { pkgs, config, ... }: {
+      # List packages installed in system profile. To search by name, run:
+      # $ nix-env -qaP | grep wget
+      environment.systemPackages =
+        with pkgs;[ 
+          vim
+      	  zoxide
+	        mkalias
+	        alacritty
+	        neovim
+          obsidian
+          vscode
+          telegram-desktop
+          qbittorrent-enhanced
+        ];
+
+      nixpkgs.config.allowUnfree = true;
+      security.pam.services.sudo_local.touchIdAuth = true;      
+      nix.settings.experimental-features = "nix-command flakes";
+
+
+      homebrew = {
+        enable = true;
+        brews = [
+          "stow"
+          "bison"
+          "gettext"
+          "libtool"
+          "automake"
+          "autoconf"
+          "texinfo"
+          "gnupg"
+          "pinentry-mac"
+      ];
+        casks = [
+          "zen"
+          "xampp"
+          "protonvpn"
+          "vlc"
+          "roblox"
+          "localsend"
+          "ghostty"
+          "vesktop"
+        ];
+        masApps = {
+          "XCode" = 497799835;
+        };
+        onActivation = {
+          cleanup = "zap";
+          autoUpdate = true;
+          upgrade = true;
+        };
+      };
+
+      system.primaryUser = "adxthya";
+      programs.fish.enable = true;
+
+      # Necessary for using flakes on this system.
+      nix.settings.experimental-features = "nix-command flakes";
+
+      # Enable alternative shell support in nix-darwin.
+      # programs.fish.enable = true;
+
+      # Set Git commit hash for darwin-version.
+      system.configurationRevision = self.rev or self.dirtyRev or null;
+
+      # Used for backwards compatibility, please read the changelog before changing.
+      # $ darwin-rebuild changelog
+      system.stateVersion = 6;
+
+      # The platform the configuration will be used on.
+      nixpkgs.hostPlatform = "aarch64-darwin";
+    };
+  in
+  {
+    # Build darwin flake using:
+    # $ darwin-rebuild build --flake .#hope
+    darwinConfigurations."hope" = nix-darwin.lib.darwinSystem {
+      modules = [ 
+      configuration 
+      mac-app-util.darwinModules.default 
+      nix-homebrew.darwinModules.nix-homebrew
+        {
+          nix-homebrew = {
+            # Install Homebrew under the default prefix
+            enable = true;
+
+            # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+            enableRosetta = true;
+
+            # User owning the Homebrew prefix
+            user = "adxthya";
+
+            # Automatically migrate existing Homebrew installations
+            autoMigrate = true;
+          };
+        }
+      ];
+    };
+  };
+}
