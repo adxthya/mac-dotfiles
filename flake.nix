@@ -27,7 +27,6 @@
           vim
       	  zoxide
 	  mkalias
-	  alacritty
 	  neovim
 	  bun
           obsidian
