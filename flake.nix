@@ -26,9 +26,10 @@
         with pkgs;[ 
           vim
       	  zoxide
-	        mkalias
-	        alacritty
-	        neovim
+	  mkalias
+	  alacritty
+	  neovim
+	  bun
           obsidian
           vscode
           telegram-desktop
@@ -36,26 +37,20 @@
         ];
 
       nixpkgs.config.allowUnfree = true;
-      security.pam.services.sudo_local.touchIdAuth = true;      
-      nix.settings.experimental-features = "nix-command flakes";
+      security.pam.services.sudo_local.touchIdAuth = true;
 
 
       homebrew = {
         enable = true;
         brews = [
           "stow"
-          "bison"
-          "gettext"
-          "libtool"
-          "automake"
-          "autoconf"
-          "texinfo"
           "gnupg"
           "pinentry-mac"
+	  "starship"
+	  "gh"
       ];
         casks = [
-          "zen"
-          "xampp"
+	  "brave-browser"
           "protonvpn"
           "vlc"
           "roblox"
@@ -63,9 +58,7 @@
           "ghostty"
           "vesktop"
         ];
-        masApps = {
-          "XCode" = 497799835;
-        };
+        masApps = {};
         onActivation = {
           cleanup = "zap";
           autoUpdate = true;

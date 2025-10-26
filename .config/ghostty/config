@@ -7,3 +7,5 @@ window-padding-x = 10
 window-padding-y = 10
 confirm-close-surface = false
 command = /run/current-system/sw/bin/fish
+window-height = 20
+window-width = 80

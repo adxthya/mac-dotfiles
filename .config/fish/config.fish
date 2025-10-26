@@ -5,4 +5,4 @@ starship init fish | source
 set fish_greeting
 alias v="nvim"
 alias c="clear"
-
+alias gs="git status"
