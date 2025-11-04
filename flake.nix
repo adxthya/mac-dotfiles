@@ -26,9 +26,9 @@
         with pkgs;[ 
           vim
       	  zoxide
-	  mkalias
-	  neovim
-	  bun
+	        mkalias
+	        neovim
+	        bun
           obsidian
           vscode
           telegram-desktop
@@ -42,14 +42,20 @@
       homebrew = {
         enable = true;
         brews = [
+          "syncthing"
+          "pocketbase"
+          "uv"
           "stow"
           "gnupg"
           "pinentry-mac"
-	  "starship"
-	  "gh"
-      ];
+	        "starship"
+	        "gh"
+        ];
         casks = [
-	  "brave-browser"
+          "balenaetcher"
+          "tor-browser"
+          "openmtp"
+	        "brave-browser"
           "protonvpn"
           "vlc"
           "roblox"
