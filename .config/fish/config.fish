@@ -3,6 +3,7 @@ if status is-interactive
 end
 starship init fish | source
 zoxide init fish | source
+eval "$(rbenv init -)"
 set fish_greeting
 alias v="nvim"
 alias c="clear"

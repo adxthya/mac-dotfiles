@@ -17,45 +17,55 @@
     };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, mac-app-util, nix-homebrew,homebrew-core, homebrew-cask }:
-  let
-    configuration = { pkgs, config, ... }: {
+  outputs = inputs @ {
+    self,
+    nix-darwin,
+    nixpkgs,
+    mac-app-util,
+    nix-homebrew,
+    homebrew-core,
+    homebrew-cask,
+  }: let
+    configuration = {
+      pkgs,
+      config,
+      ...
+    }: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
-      environment.systemPackages =
-        with pkgs;[ 
-          vim
-      	  zoxide
-	        mkalias
-	        neovim
-	        bun
-          obsidian
-          vscode
-          telegram-desktop
-          qbittorrent-enhanced
-        ];
+      environment.systemPackages = with pkgs; [
+        vim
+        zoxide
+        mkalias
+        neovim
+        bun
+        obsidian
+        vscode
+        telegram-desktop
+        qbittorrent-enhanced
+      ];
 
       nixpkgs.config.allowUnfree = true;
       security.pam.services.sudo_local.touchIdAuth = true;
 
-
       homebrew = {
         enable = true;
         brews = [
+          "rust"
+          "rbenv"
           "syncthing"
-          "pocketbase"
           "uv"
           "stow"
           "gnupg"
           "pinentry-mac"
-	        "starship"
-	        "gh"
+          "starship"
+          "gh"
         ];
         casks = [
-          "balenaetcher"
+          "flutter"
           "tor-browser"
           "openmtp"
-	        "brave-browser"
+          "brave-browser"
           "protonvpn"
           "vlc"
           "roblox"
@@ -90,15 +100,14 @@
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
     };
-  in
-  {
+  in {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#hope
     darwinConfigurations."hope" = nix-darwin.lib.darwinSystem {
-      modules = [ 
-      configuration 
-      mac-app-util.darwinModules.default 
-      nix-homebrew.darwinModules.nix-homebrew
+      modules = [
+        configuration
+        mac-app-util.darwinModules.default
+        nix-homebrew.darwinModules.nix-homebrew
         {
           nix-homebrew = {
             # Install Homebrew under the default prefix
