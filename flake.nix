@@ -34,7 +34,6 @@
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages = with pkgs; [
-        vim
         zoxide
         mkalias
         neovim
@@ -51,6 +50,9 @@
       homebrew = {
         enable = true;
         brews = [
+          "prettierd"
+          "tmux"
+          "lazygit"
           "rust"
           "rbenv"
           "syncthing"
@@ -62,7 +64,15 @@
           "gh"
         ];
         casks = [
-          "flutter"
+          "kindle"
+          "appcleaner"
+          "balenaetcher"
+          "antigravity"
+          "pika"
+          "capcut"
+          "google-chrome"
+          "coconutbattery"
+          "rectangle"
           "tor-browser"
           "openmtp"
           "brave-browser"
@@ -73,7 +83,8 @@
           "ghostty"
           "vesktop"
         ];
-        masApps = {};
+        masApps = {
+        };
         onActivation = {
           cleanup = "zap";
           autoUpdate = true;

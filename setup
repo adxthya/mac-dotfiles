@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Installing Nix
+
+# Creating/ Checking the .config dir
+if [ -d "$HOME/.config" ]; then
+  echo "Directory $HOME/.config already exists."
+else
+  mkdir -p "$HOME/.config"
+  echo "Directory $HOME/.config created."
+fi
+
+# Running stow
+
