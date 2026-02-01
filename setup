@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-# Installing Nix
+set -e
 
-# Creating/ Checking the .config dir
+REPO_URL="https://github.com/adxthya/mac-dotfiles"
+DOTFILES_DIR="$HOME/mac-dotfiles"
+
+# Create ~/.config if it doesn't exist
 if [ -d "$HOME/.config" ]; then
   echo "Directory $HOME/.config already exists."
 else
@@ -10,5 +13,15 @@ else
   echo "Directory $HOME/.config created."
 fi
 
-# Running stow
+# Clone repo if not already cloned
+if [ -d "$DOTFILES_DIR" ]; then
+  echo "mac-dotfiles already exists. Skipping clone."
+else
+  echo "Cloning mac-dotfiles..."
+  git clone "$REPO_URL" "$DOTFILES_DIR"
+fi
 
+# Run stow
+echo "Running stow..."
+cd "$DOTFILES_DIR" || exit 1
+stow .

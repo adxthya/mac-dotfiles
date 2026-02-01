@@ -49,7 +49,12 @@
 
       homebrew = {
         enable = true;
+        taps = [
+          "TheBoredTeam/boring-notch"
+        ];
         brews = [
+          "mas"
+          "webp"
           "prettierd"
           "tmux"
           "lazygit"
@@ -64,27 +69,28 @@
           "gh"
         ];
         casks = [
-          "kindle"
+          "boring-notch"
+          "macfuse"
+          "veracrypt"
+          "jellyfin"
+          "google-drive"
+          "spotify"
+          "whatsapp"
           "appcleaner"
-          "balenaetcher"
           "antigravity"
-          "pika"
-          "capcut"
-          "google-chrome"
           "coconutbattery"
           "rectangle"
-          "tor-browser"
           "openmtp"
           "brave-browser"
           "protonvpn"
           "vlc"
-          "roblox"
           "localsend"
           "ghostty"
           "vesktop"
         ];
         masApps = {
         };
+        global.autoUpdate = false;
         onActivation = {
           cleanup = "zap";
           autoUpdate = true;
