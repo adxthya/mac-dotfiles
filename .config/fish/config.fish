@@ -1,10 +1,20 @@
 if status is-interactive
-    # Commands to run in interactive sessions can go here
 end
+
 starship init fish | source
 zoxide init fish | source
 eval "$(rbenv init -)"
+
 set fish_greeting
+
+# Java
+set -Ux JAVA_HOME /opt/homebrew/opt/openjdk@17
+set -Ux PATH $JAVA_HOME/bin $PATH
+
+# Android SDK
+set -Ux ANDROID_HOME $HOME/Library/Android/sdk
+set -Ux ANDROID_SDK_ROOT $ANDROID_HOME
+
 alias v="nvim"
 alias c="clear"
 alias cd="z"

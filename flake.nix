@@ -39,7 +39,6 @@
         neovim
         bun
         obsidian
-        vscode
         telegram-desktop
         qbittorrent-enhanced
       ];
@@ -53,14 +52,15 @@
           "TheBoredTeam/boring-notch"
         ];
         brews = [
+          "openjdk@17"
+          "spicetify-cli"
+          "typst"
           "mas"
           "webp"
           "prettierd"
           "tmux"
           "lazygit"
-          "rust"
           "rbenv"
-          "syncthing"
           "uv"
           "stow"
           "gnupg"
@@ -69,6 +69,18 @@
           "gh"
         ];
         casks = [
+          "discord@canary"
+          "android-commandlinetools"
+          "android-platform-tools"
+          "flutter"
+          "gimp"
+          "1password"
+          "raycast"
+          "aldente"
+          "vesktop"
+          "roblox"
+          "zed"
+          "bitwarden"
           "boring-notch"
           "macfuse"
           "veracrypt"
@@ -78,7 +90,6 @@
           "whatsapp"
           "appcleaner"
           "antigravity"
-          "coconutbattery"
           "rectangle"
           "openmtp"
           "brave-browser"
@@ -86,7 +97,6 @@
           "vlc"
           "localsend"
           "ghostty"
-          "vesktop"
         ];
         masApps = {
         };
